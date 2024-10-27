@@ -8,22 +8,22 @@
             <div class="card-body p-5">
               <h2 class="text-center mb-5">Login Page</h2>
 
-              <form>
+              <form [formGroup]="loginform">
 
                 <div data-mdb-input-init class="form-outline mb-4">
                     <label class="form-label" for="form3Example1cg">Card Number</label>
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="cardNum"/>
                   
                 </div>
 
                 <div data-mdb-input-init class="form-outline mb-4">
                     <label class="form-label" for="form3Example4cdg">Password</label>
-                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" />
+                    <input type="password" id="form3Example4cdg" class="form-control form-control-lg" formControlName="password" />
                   </div>
 
                 <div class="d-flex justify-content-center">
                   <button  type="button" data-mdb-button-init
-                    data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
+                    data-mdb-ripple-init class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" (click)="Login()">Login</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0">Doesn't have an account? <a href="/auth/register"

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BankService } from '../../services/bank.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
@@ -13,7 +14,7 @@ export class RegisterPageComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private bankService: BankService) {}
+  constructor(private bankService: BankService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -29,8 +30,16 @@ export class RegisterPageComponent implements OnInit {
         name: this.form.get('name')?.value,
         password: this.form.get('password')?.value,
       }
-      this.bankService.register(data).subscribe((response) => {
-        console.log(response); // TODO: Handle login. ex: goto dashboard
+      this.bankService.register(data).subscribe({
+        next: (response) => {
+          if (response.accountId) {
+            this.router.navigate(['/auth/login']);
+          }
+          console.log(response); // TODO: Handle registration. ex: goto login
+        },
+        error: (error) => {
+          console.log(error);
+        }
       });
     }
   }
