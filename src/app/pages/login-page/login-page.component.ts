@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
       this.bankService.login(data).subscribe({
         next: (response) => {
           if (response.accountId) {
-            this.router.navigate(['/auth/transactions']);
+            this.router.navigate(['/transactions']);
           }
           console.log(response); // TODO: Handle login. ex: goto transactions page
         },

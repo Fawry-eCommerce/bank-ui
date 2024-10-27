@@ -19,8 +19,8 @@ export const routes: Routes = [
         ]
     }
     ,
-            {
-                path:'transactions',
-                component:TransactionPageComponent
-            }
+    {
+        path: 'transactions',
+        component: TransactionPageComponent
+    }
 ];
