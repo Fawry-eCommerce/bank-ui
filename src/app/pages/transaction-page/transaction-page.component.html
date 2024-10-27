@@ -1,0 +1,45 @@
+<div id="account-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-3">
+          <div class="deposit status">
+            <h5>Deposit</h5>
+            <h2>$ <span id="current-deposit">{{ currentDeposit }}</span></h2>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <div class="withdraw status">
+            <h5>Withdraw</h5>
+            <h2>$ <span id="current-withdraw">{{ currentWithdraw }}</span></h2>
+          </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <div class="balance status">
+            <h5>Balance</h5>
+            <h2>$ <span id="current-balance">{{ currentBalance }}</span></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="submit-area">
+            <h4>Deposit Amount</h4>
+            <input formControlName="depositAmount" type="text" class="form-control" placeholder="Enter deposit amount"><br>
+            <button (click)="onDeposit()" class="btn btn-success">Deposit</button>
+          </div>
+        </div>
+  
+        <div class="col-lg-6">
+          <div class="submit-area">
+            <h4>Withdraw Amount</h4>
+            <input formControlName="withdrawAmount" type="text" class="form-control" placeholder="Enter withdraw amount"><br>
+            <button (click)="onWithdraw()" class="btn btn-success">Withdraw</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
