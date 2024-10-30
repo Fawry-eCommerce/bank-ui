@@ -1,45 +1,60 @@
 <div id="account-area">
-    <div class="container">
+  <div class="container">
       <div class="row">
-        <div class="col-lg-4 mb-3">
-          <div class="deposit status">
-            <h5>Deposit</h5>
-            <h2>$ <span id="current-deposit">{{ currentDeposit }}</span></h2>
+          <div class="col-lg-4 mb-3">
+              <div class="deposit status">
+                  <h5>Deposit</h5>
+                  <h2><span id="current-deposit">{{ currentDeposit | currency:'EGP '}}</span></h2>
+              </div>
           </div>
-        </div>
-        <div class="col-lg-4 mb-3">
-          <div class="withdraw status">
-            <h5>Withdraw</h5>
-            <h2>$ <span id="current-withdraw">{{ currentWithdraw }}</span></h2>
+          <div class="col-lg-4 mb-3">
+              <div class="withdraw status">
+                  <h5>Withdraw</h5>
+                  <h2> <span id="current-withdraw">{{ currentWithdraw | currency:'EGP '}}</span></h2>
+              </div>
           </div>
-        </div>
-        <div class="col-lg-4 mb-3">
-          <div class="balance status">
-            <h5>Balance</h5>
-            <h2>$ <span id="current-balance">{{ currentBalance }}</span></h2>
+          <div class="col-lg-4 mb-3">
+              <div class="balance status">
+                  <h5>Balance</h5>
+                  <h2> <span id="current-balance">{{ currentBalance | currency:'EGP '}}</span></h2>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
-  
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="submit-area">
-            <h4>Deposit Amount</h4>
-            <input formControlName="depositAmount" type="text" class="form-control" placeholder="Enter deposit amount"><br>
-            <button (click)="onDeposit()" class="btn btn-success">Deposit</button>
-          </div>
-        </div>
-  
-        <div class="col-lg-6">
-          <div class="submit-area">
-            <h4>Withdraw Amount</h4>
-            <input formControlName="withdrawAmount" type="text" class="form-control" placeholder="Enter withdraw amount"><br>
-            <button (click)="onWithdraw()" class="btn btn-success">Withdraw</button>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-  
+
+  <div class="container">
+      <form [formGroup]="transactionform">
+          <div class="row">
+              <div class="col-lg-6">
+                  <div class="submit-area">
+                      <label for="depositAmount">Deposit Amount</label>
+                      <input
+                          id="depositAmount"
+                          formControlName="depositAmount"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter deposit amount"
+                          required
+                      /><br />
+                      <button (click)="onDeposit()" class="btn btn-success" type="button">Deposit</button>
+                  </div>
+              </div>
+
+              <div class="col-lg-6">
+                  <div class="submit-area">
+                      <label for="withdrawAmount">Withdraw Amount</label>
+                      <input
+                          id="withdrawAmount"
+                          formControlName="withdrawAmount"
+                          type="text"
+                          class="form-control"
+                          placeholder="Enter withdraw amount"
+                          required
+                      /><br />
+                      <button (click)="onWithdraw()" class="btn btn-success" type="button">Withdraw</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>

@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BankService } from '../../services/bank.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-page',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule, CurrencyPipe],
   templateUrl: './transaction-page.component.html',
   styleUrl: './transaction-page.component.css'
 })
 export class TransactionPageComponent {
   transactionform!: FormGroup;
 
-  currentBalance: number = 0;  // Initial balance, can be updated based on backend data
+  currentBalance: number = 0;  
   currentDeposit: number = 0;
   currentWithdraw: number = 0;
-  accountId: number = 1; // This should be dynamically set based on logged-in user
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private bankService: BankService) {}
 
@@ -24,12 +25,13 @@ export class TransactionPageComponent {
       depositAmount: [''],
       withdrawAmount: ['']
     });
+    this.getBalance();
   }
 
   onDeposit(): void {
     const depositAmount = parseFloat(this.transactionform.get('depositAmount')?.value);
     if (!isNaN(depositAmount) && depositAmount > 0) {
-      this.bankService.deposit(this.accountId, depositAmount).subscribe(response => {
+      this.bankService.deposit(this.getAccoundId(), depositAmount).subscribe(response => {
         this.currentDeposit += depositAmount;
         this.currentBalance = response.newBalance; // Update based on backend response
         this.transactionform.get('depositAmount')?.reset();
@@ -39,15 +41,42 @@ export class TransactionPageComponent {
 
   onWithdraw(): void {
     const withdrawAmount = parseFloat(this.transactionform.get('withdrawAmount')?.value);
-    if (!isNaN(withdrawAmount) && withdrawAmount > 0 && withdrawAmount <= this.currentBalance) {
-      this.bankService.withdraw(this.accountId, withdrawAmount).subscribe(response => {
+    // if (!isNaN(withdrawAmount) && withdrawAmount > 0 && withdrawAmount <= this.currentBalance) {
+    //   this.bankService.withdraw(Number(localStorage.getItem('accountId')), withdrawAmount).subscribe(response => {
+    //     this.currentWithdraw += withdrawAmount;
+    //     this.currentBalance = response.newBalance;  // Use newBalance from the backend response
+    //     this.transactionform.get('withdrawAmount')?.reset();
+    // },
+    // error => {
+    //   this.errorMessage = error.error.message;
+    //   console.log(this.errorMessage);
+      
+    // });
+    // }
+    this.bankService.withdraw(this.getAccoundId(), withdrawAmount).subscribe({
+      next: (response) => {
         this.currentWithdraw += withdrawAmount;
-        this.currentBalance = response.newBalance; // Update based on backend response
+        this.currentBalance = response.newBalance;
         this.transactionform.get('withdrawAmount')?.reset();
-      });
-    }
+      },
+      error: (error) => {
+        this.errorMessage = error.error.message;
+        alert(this.errorMessage);
+      }
+    });
   }
 
+  getBalance(): void {
+    this.bankService.getBalance(this.getAccoundId()).subscribe(response => {
+      this.currentBalance = response;
+    });
+  }
+
+  getAccoundId(): number {
+    console.log(Number(localStorage.getItem('accountId')));
+    return Number(localStorage.getItem('accountId'));
+  }
+  
 
 
 
