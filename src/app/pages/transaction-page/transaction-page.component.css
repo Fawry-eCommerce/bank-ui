@@ -7,14 +7,16 @@ body {
   .submit-area {
 	padding: 30px;
 	margin-top: 50px;
-	border-radius: 10px;
+	margin-bottom: 50px;
+	border-radius: 20px;
+	width: 85%;
 	box-shadow: 5px 5px gray;
 	color: white;
 	background-color: royalblue;
   }
   
   #account-area {
-	margin-top: 5%;
+	margin-top: 10%;
   }
   
   .deposit {
@@ -30,9 +32,9 @@ body {
   }
   
   .status {
-	margin: 0 20px;
+	margin: 0 50px;
 	color: white;
 	padding: 20px;
-	border-radius: 10px;
+	border-radius: 25px;
   }
   
